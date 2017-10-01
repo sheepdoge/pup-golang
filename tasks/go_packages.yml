@@ -1,0 +1,8 @@
+---
+- name: Install go packages.
+  shell: "GOPATH={{ gopath }} go get -u {{ item }}"
+  with_items: "{{ go_bins }}"
+
+- name: Uninstall go packages.
+  shell: "GOPATH={{ gopath }} go clean -i {{ item }}"
+  with_teims: "{{ go_deleted_bins }}"

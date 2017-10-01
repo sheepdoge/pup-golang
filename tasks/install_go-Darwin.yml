@@ -1,0 +1,5 @@
+---
+# @TODO(mattjmcnaughton) Determine a way to control version.
+- homebrew:
+    name: go
+    state: present

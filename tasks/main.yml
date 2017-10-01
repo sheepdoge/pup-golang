@@ -1,0 +1,7 @@
+---
+- include: install_go-Debian.yml
+  when: ansible_os_family == 'Debian'
+- include: install_go-Darwin.yml
+  when: ansible_os_family == 'Darwin'
+- include: go_env.yml
+- include: go_packages.yml

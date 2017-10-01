@@ -1,0 +1,5 @@
+---
+# @TODO(mattjmcnaughton) Determine a way to control version.
+apt:
+  name: golang-go
+  state: present

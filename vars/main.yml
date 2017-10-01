@@ -1,0 +1,5 @@
+---
+dotfile: "{{ pup_golang_vars_dotfile }}"
+gopath: "{{ pup_golang_vars_gopath }}"
+go_bins: "{{ pup_golang_vars_go_bins }}"
+go_deleted_bins: "{{ pup_golang_vars_go_deleted_bins }}"
