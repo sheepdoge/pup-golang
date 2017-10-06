@@ -1,13 +1,18 @@
 ---
-- name: Set the GOPATH in the dotfile.
+- name: ensure GOPATH directory exists
+  file:
+    path: "{{ gopath }}"
+    state: directory
+
+- name: set the GOPATH in the dotfile
   lineinfile:
     path: "{{ dotfile }}"
     state: present
     line: "export GOPATH={{ gopath }}"
 
-- name: Add GOPATH/bin to PATH
+- name: add GOPATH/bin to PATH
   lineinfile:
-    path: "{{ dotffile }}"
+    path: "{{ dotfile }}"
     state: present
-    line: "export PATH=\$GOPATH/bin:\$PATH"
+    line: "[[ \":$PATH:\" != *\":$GOPATH/bin:\"* ]] && PATH=\"$GOPATH/bin:$PATH\" || true"
     insertafter: "^export GOPATH"

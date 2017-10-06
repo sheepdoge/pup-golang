@@ -1,5 +1,5 @@
 ---
-# @TODO(mattjmcnaughton) Determine a way to control version.
-- homebrew:
+- name: install golang with homebrew
+  homebrew:
     name: go
     state: present
