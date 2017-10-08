@@ -3,4 +3,4 @@
   connection: local
 
   tasks:
-    - include: tasks/main.yml
+    - include_tasks: tasks/main.yml
