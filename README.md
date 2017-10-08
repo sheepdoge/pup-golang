@@ -1,4 +1,17 @@
-# pup-mattjmcnaughton-dotfiles
+# pup-golang
 
-[sheepdoge](https://github.com/mattjmcnaughton/sheepdoge) pup for managing my
-personal dotfiles.
+[sheepdoge](https://github.com/mattjmcnaughton/sheepdoge) pup for managing
+golang.
+
+## Variables
+
+- `pup_golang_vars_dotfile`: The dotfile in which to configure GOPATH.
+- `pup_golang_vars_gopath`: The GOPATH.
+- `pup_golang_vars_go_bins`: A list of go binaries to install.
+- `pup_golang_vars_go_deleted_bins`: A list of binaries to ensure are not
+  installed.
+
+## Requirements
+
+If you do not already have `go` installed, you will need either `homebrew` or
+`python-apt` (depending on your OS).

@@ -1,7 +1,18 @@
 ---
-- include: install_go-Debian.yml
-  when: ansible_os_family == 'Debian'
-- include: install_go-Darwin.yml
-  when: ansible_os_family == 'Darwin'
-- include: go_env.yml
-- include: go_packages.yml
+- name: determine if go installed
+  command: which go
+  register: go_is_installed
+  failed_when: go_is_installed.rc > 1
+  changed_when: no
+
+- name: install go on debian
+  include_tasks: install_go-Debian.yml
+  when: ansible_os_family == 'Debian' and go_is_installed.rc > 0
+- name: install go on Darwin
+  include_tasks: install_go-Darwin.yml
+  when: ansible_os_family == 'Darwin' and go_is_installed.rc > 0
+
+- name: configure go environment variables
+  include_tasks: go_env.yml
+- name: install go packages
+  include_tasks: go_packages.yml
