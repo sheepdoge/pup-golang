@@ -1,19 +1,22 @@
 ---
-# @TODO(mattjmcnaughton) Determine if I want to dynamically control the version.
-- name: download the go tar
-  get_url:
-    url: https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
-    dest: /tmp/go1.9.linux-amd64.tar.gz
-    checksum: "sha256:d70eadefce8e160638a9a6db97f7192d8463069ab33138893ad3bf31b0650a79"
+- block:
+  - name: add the gophers/archive ppa
+    apt_repository:
+      repo: "ppa:gophers/archive"
+      state: present
 
-- name: extract the tarball
-  unarchive:
-    src: /tmp/go1.9.linux-amd64.tar.gz
-    dest: /usr/local
-    copy: no
+  - name: set go version
+    set_fact:
+      go_version: 1.9
+
+  - name: install golang
+    apt:
+      package: "golang-{{ go_version }}-go"
+      state: present
+  become: yes
 
 - name: ensure go binary discoverable in PATH
   lineinfile:
     path: "{{ dotfile }}"
     state: present
-    line: "[[ \":$PATH:\" != *\":/usr/local/go/bin:\"* ]] && PATH=\"/usr/local/go/bin:$PATH\" || true"
+    line: "[[ \":$PATH:\" != *\":/usr/lib/go-{{ go_version }}/bin:\"* ]] && PATH=\"/usr/lib/go-{{ go_version }}/bin:$PATH\" || true"
