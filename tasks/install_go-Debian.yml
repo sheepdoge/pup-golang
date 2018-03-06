@@ -5,18 +5,8 @@
       repo: "ppa:gophers/archive"
       state: present
 
-  - name: set go version
-    set_fact:
-      go_version: 1.9
-
   - name: install golang
     apt:
       package: "golang-{{ go_version }}-go"
       state: present
   become: yes
-
-- name: ensure go binary discoverable in PATH
-  lineinfile:
-    path: "{{ dotfile }}"
-    state: present
-    line: "[[ \":$PATH:\" != *\":/usr/lib/go-{{ go_version }}/bin:\"* ]] && PATH=\"/usr/lib/go-{{ go_version }}/bin:$PATH\" || true"

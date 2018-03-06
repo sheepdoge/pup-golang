@@ -5,9 +5,16 @@
   failed_when: go_is_installed.rc > 1
   changed_when: no
 
-- name: install go on debian
-  include_tasks: install_go-Debian.yml
-  when: ansible_os_family == 'Debian' and go_is_installed.rc > 0
+- block:
+  - name: set go version
+    set_fact:
+      go_version: 1.9
+
+  - name: install go on debian
+    include_tasks: install_go-Debian.yml
+    when: go_is_installed.rc > 0
+  when: ansible_os_family == 'Debian'
+
 - name: install go on Darwin
   include_tasks: install_go-Darwin.yml
   when: ansible_os_family == 'Darwin' and go_is_installed.rc > 0
